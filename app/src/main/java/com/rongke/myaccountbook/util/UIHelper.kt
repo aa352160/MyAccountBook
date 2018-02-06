@@ -5,7 +5,7 @@ import android.content.Intent
 import com.rongke.myaccountbook.activity.MainActivity
 
 /**
- * Created by Administrator on 2018/1/24.
+ * Created by jh352160 on 2018/1/24.
  */
 
 object UIHelper{

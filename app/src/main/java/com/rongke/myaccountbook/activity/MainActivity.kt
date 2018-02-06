@@ -1,16 +1,19 @@
 package com.rongke.myaccountbook.activity
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import com.rongke.baselibrary.base.BaseActivity
 import com.rongke.myaccountbook.R
+import com.rongke.myaccountbook.adapter.IndexAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        text.setOnClickListener {  }
+        recycler_view.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        recycler_view.adapter = IndexAdapter(this, listOf("","","","","","",""))
     }
 }
