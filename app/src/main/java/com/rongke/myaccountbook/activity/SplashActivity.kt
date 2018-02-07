@@ -12,9 +12,9 @@ import com.rongke.myaccountbook.util.UIHelper
  */
 
 class SplashActivity : BaseActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+    override fun setLayoutRes(): Int = R.layout.activity_splash
+
+    override fun initView() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
         startCountDown()
     }
