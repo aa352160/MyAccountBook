@@ -5,7 +5,6 @@ import android.widget.Toast
 import com.rongke.baselibrary.base.BaseActivity
 import com.rongke.baselibrary.util.CommonUtil
 import com.rongke.myaccountbook.R
-import com.rongke.myaccountbook.R.id.btn_back
 import com.rongke.myaccountbook.database.model.BillRecordDataModel
 import com.rongke.myaccountbook.util.BILL_RECORD_TYPE_DINING
 import com.rongke.myaccountbook.viewmodel.BillRecordViewModel
