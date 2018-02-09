@@ -40,6 +40,7 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_record_type"
         android:background="@null"
         android:inputType="numberDecimal"
+        android:gravity="end"
         android:hint="0.00"
         android:textSize="30sp"
         />
@@ -63,18 +64,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="horizontal"
         >
-
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:text="返回"
-            android:textSize="15sp"
-            android:textColor="@color/primary_font_color"
-            android:visibility="gone"
-            />
 
         <Button
             android:id="@+id/btn_save"
