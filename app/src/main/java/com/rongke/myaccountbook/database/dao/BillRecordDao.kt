@@ -18,4 +18,7 @@ interface BillRecordDao {
 
     @Insert
     fun insert(model: BillRecordDataModel)
+
+    @Query("SELECT * from bill_record_table WHERE createTimeId = :arg0 ")
+    fun getRecordByTime(createTimeId : Long): List<BillRecordDataModel>
 }

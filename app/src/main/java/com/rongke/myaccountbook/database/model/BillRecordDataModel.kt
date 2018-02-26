@@ -13,14 +13,9 @@ import android.arch.persistence.room.RoomDatabase
  */
 
 @Entity(tableName = "bill_record_table")
-data class BillRecordDataModel(var type: Int, var isIncome: Boolean, var price: String?) {
+data class BillRecordDataModel(var type: Int, var isIncome: Boolean, var price: String?, var createTimeId: Long) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 
-    var createTime: Long = 0
-        set(createTime) {
-            field = System.currentTimeMillis()
-        }
-
-    constructor() : this(0,false,null)
+    constructor() : this(0,false,null,System.currentTimeMillis())
 }

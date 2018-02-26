@@ -1,7 +1,6 @@
-package com.rongke.myaccountbook.database
+package com.rongke.myaccountbook.database.database
 
 import android.arch.persistence.room.Database
-import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
@@ -15,7 +14,6 @@ import com.rongke.myaccountbook.database.model.BillRecordDataModel
 
 @Database(entities = [BillRecordDataModel::class], version = 1, exportSchema = false)
 abstract class BillRecordDataBase : RoomDatabase() {
-
     abstract fun billRecordDao(): BillRecordDao
 
     companion object {

@@ -34,7 +34,8 @@ class AddRecordActivity : BaseActivity(){
     }
 
     private fun insertBillRecordToDataBase() {
-        val model = BillRecordDataModel(BILL_RECORD_TYPE_DINING,false,edt_price.text.toString())
+        val model = BillRecordDataModel(
+                BILL_RECORD_TYPE_DINING,false,edt_price.text.toString(),System.currentTimeMillis())
         recordViewModel.insert(model)
     }
 }

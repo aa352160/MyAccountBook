@@ -3,29 +3,24 @@ package com.rongke.myaccountbook.viewmodel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
-
 import com.rongke.myaccountbook.database.model.BillRecordDataModel
 import com.rongke.myaccountbook.database.model.DateRecordDataModel
 import com.rongke.myaccountbook.database.repository.BillRecordRepository
+import com.rongke.myaccountbook.database.repository.DateRecordRepository
 
 /**
- * Created by jh352160 on 2018/2/9.
+ * Created by jh352160 on 2018/2/26.
  */
-
-class BillRecordViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: BillRecordRepository
-    val allDatas: LiveData<List<BillRecordDataModel>>
+class DateRecordViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: DateRecordRepository
+    val allDatas: LiveData<List<DateRecordDataModel>>
 
     init {
-        repository = BillRecordRepository(application)
+        repository = DateRecordRepository(application)
         allDatas = repository.allRecord
     }
 
-    fun insert(model: BillRecordDataModel) {
+    fun insert(model: DateRecordDataModel) {
         repository.insert(model)
-    }
-
-    fun findByTime(model: DateRecordDataModel) {
-        repository.findByTime(model)
     }
 }
