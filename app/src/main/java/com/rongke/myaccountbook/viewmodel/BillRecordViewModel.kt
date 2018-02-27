@@ -21,11 +21,7 @@ class BillRecordViewModel(application: Application) : AndroidViewModel(applicati
         allDatas = repository.allRecord
     }
 
-    fun insert(model: BillRecordDataModel) {
-        repository.insert(model)
-    }
+    fun insert(model: BillRecordDataModel) = repository.insert(model)
 
-    fun findByTime(model: DateRecordDataModel) {
-        repository.findByTime(model)
-    }
+    fun findByTime(model: DateRecordDataModel) = repository.findByTime(model)
 }

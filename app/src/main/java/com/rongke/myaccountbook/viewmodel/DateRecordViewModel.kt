@@ -3,9 +3,7 @@ package com.rongke.myaccountbook.viewmodel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
-import com.rongke.myaccountbook.database.model.BillRecordDataModel
 import com.rongke.myaccountbook.database.model.DateRecordDataModel
-import com.rongke.myaccountbook.database.repository.BillRecordRepository
 import com.rongke.myaccountbook.database.repository.DateRecordRepository
 
 /**
@@ -20,7 +18,5 @@ class DateRecordViewModel(application: Application) : AndroidViewModel(applicati
         allDatas = repository.allRecord
     }
 
-    fun insert(model: DateRecordDataModel) {
-        repository.insert(model)
-    }
+    fun insert(model: DateRecordDataModel) = repository.insert(model)
 }

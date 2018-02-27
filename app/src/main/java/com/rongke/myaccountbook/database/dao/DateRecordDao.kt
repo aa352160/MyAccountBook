@@ -17,5 +17,5 @@ interface DateRecordDao {
     fun allDateRecord(): LiveData<List<DateRecordDataModel>>
 
     @Insert
-    fun insert(model: DateRecordDataModel)
+    fun insert(model: DateRecordDataModel) : Long
 }

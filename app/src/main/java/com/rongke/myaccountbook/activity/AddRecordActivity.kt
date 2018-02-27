@@ -1,13 +1,18 @@
 package com.rongke.myaccountbook.activity
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.widget.Toast
 import com.rongke.baselibrary.base.BaseActivity
 import com.rongke.baselibrary.util.CommonUtil
 import com.rongke.myaccountbook.R
+import com.rongke.myaccountbook.R.id.edt_price
 import com.rongke.myaccountbook.database.model.BillRecordDataModel
+import com.rongke.myaccountbook.database.model.DateRecordDataModel
 import com.rongke.myaccountbook.util.BILL_RECORD_TYPE_DINING
+import com.rongke.myaccountbook.util.castToTimeStr
 import com.rongke.myaccountbook.viewmodel.BillRecordViewModel
+import com.rongke.myaccountbook.viewmodel.DateRecordViewModel
 import kotlinx.android.synthetic.main.activity_add_record.*
 
 /**
@@ -16,12 +21,15 @@ import kotlinx.android.synthetic.main.activity_add_record.*
 
 class AddRecordActivity : BaseActivity(){
     private val recordViewModel by lazy { ViewModelProviders.of(this).get(BillRecordViewModel::class.java) }
+    private val dateRecordModel by lazy { ViewModelProviders.of(this).get(DateRecordViewModel::class.java) }
 
     override fun setLayoutRes(): Int = R.layout.activity_add_record
 
     override fun initView() {
         btn_save.setOnClickListener {
-            if (checkInput()) insertBillRecordToDataBase()
+            if (checkInput()) {
+                checkDate(System.currentTimeMillis().castToTimeStr())
+            }
         }
     }
 
@@ -33,9 +41,35 @@ class AddRecordActivity : BaseActivity(){
         return true
     }
 
-    private fun insertBillRecordToDataBase() {
+    /**
+     * 判断当前日期在数据库中是否存在
+     */
+    private fun checkDate(currentTime: String){
+        dateRecordModel.allDatas.observe(this, Observer { datas ->
+            datas?.forEach {
+                if (it.recordData == currentTime){
+                    insertBillRecordToDataBase(it.id)
+                    return@Observer
+                }
+            }
+            insertBillRecordToDataBase(-1)
+        })
+    }
+
+    /**
+     * 将记录插入数据库
+     * @param _dateId 日期id,如果该日期在数据库中不存在则插入新数据
+     */
+    private fun insertBillRecordToDataBase(_dateId : Long) {
+        var dateId = _dateId
+        if (dateId == -1L){
+            dateId = dateRecordModel.insert(
+                    DateRecordDataModel(System.currentTimeMillis().castToTimeStr()))
+        }
+
         val model = BillRecordDataModel(
-                BILL_RECORD_TYPE_DINING,false,edt_price.text.toString(),System.currentTimeMillis())
+                BILL_RECORD_TYPE_DINING,false,edt_price.text.toString(),dateId)
         recordViewModel.insert(model)
+        finish()
     }
 }

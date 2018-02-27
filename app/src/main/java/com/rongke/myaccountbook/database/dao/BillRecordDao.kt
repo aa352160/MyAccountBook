@@ -17,7 +17,7 @@ interface BillRecordDao {
     val allRecord: LiveData<List<BillRecordDataModel>>
 
     @Insert
-    fun insert(model: BillRecordDataModel)
+    fun insert(model: BillRecordDataModel) : Long
 
     @Query("SELECT * from bill_record_table WHERE createTimeId = :arg0 ")
     fun getRecordByTime(createTimeId : Long): List<BillRecordDataModel>

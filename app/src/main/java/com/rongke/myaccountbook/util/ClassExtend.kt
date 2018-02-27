@@ -10,4 +10,4 @@ import java.util.*
  * Created by jh352160 on 2018/2/9.
  */
 
-fun Long.castToTimeStr() : String = SimpleDateFormat("yyyy-mm-dd").format(Date(this))
+fun Long.castToTimeStr() : String = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(Date(this))
