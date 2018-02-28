@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey
  */
 
 @Entity(tableName = "date_record_table")
-data class DateRecordDataModel(var recordData : String){
+data class DateRecordDataModel(var dateStr : String){
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 

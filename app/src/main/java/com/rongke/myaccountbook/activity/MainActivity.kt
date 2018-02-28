@@ -7,6 +7,7 @@ import com.rongke.baselibrary.base.BaseActivity
 import com.rongke.myaccountbook.R
 import com.rongke.myaccountbook.adapter.IndexAdapter
 import com.rongke.myaccountbook.bean.MainRecordBean
+import com.rongke.myaccountbook.database.model.BillRecordDataModel
 import com.rongke.myaccountbook.database.model.DateRecordDataModel
 import com.rongke.myaccountbook.util.UIHelper
 import com.rongke.myaccountbook.viewmodel.BillRecordViewModel
@@ -19,7 +20,7 @@ class MainActivity : BaseActivity() {
     private val recordViewModel by lazy { ViewModelProviders.of(this).get(BillRecordViewModel::class.java) }
     private val dateRecordModel by lazy { ViewModelProviders.of(this).get(DateRecordViewModel::class.java) }
 
-    private lateinit var mainData : List<MainRecordBean>
+    private lateinit var mainData : ArrayList<MainRecordBean>
 
     override fun setLayoutRes(): Int = R.layout.activity_main
 
@@ -44,15 +45,14 @@ class MainActivity : BaseActivity() {
         mainData = ArrayList()
 
         datas!!.forEach {
-            val findByTime = recordViewModel.findByTime(it)
-            findByTime[0]
+            val recordList = ArrayList<BillRecordDataModel>()
+            recordViewModel.findByTime(it).forEach {
+                recordList.add(it)
+            }
+            mainData.add(MainRecordBean(it.dateStr,recordList))
         }
-    }
 
-    private fun getRecordFromDataBase() {
-        recordViewModel.allDatas.observe(this, Observer { datas ->
-                recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                recycler_view.adapter = IndexAdapter(this, datas)
-        })
+        recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recycler_view.adapter = IndexAdapter(this, mainData)
     }
 }

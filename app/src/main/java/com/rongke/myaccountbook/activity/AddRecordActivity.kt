@@ -45,14 +45,17 @@ class AddRecordActivity : BaseActivity(){
      * 判断当前日期在数据库中是否存在
      */
     private fun checkDate(currentTime: String){
-        dateRecordModel.allDatas.observe(this, Observer { datas ->
-            datas?.forEach {
-                if (it.recordData == currentTime){
-                    insertBillRecordToDataBase(it.id)
-                    return@Observer
+        dateRecordModel.allDatas.observe(this, object : Observer<List<DateRecordDataModel>>{
+            override fun onChanged(datas: List<DateRecordDataModel>?) {
+                dateRecordModel.allDatas.removeObserver(this)
+                datas?.forEach {
+                    if (it.dateStr == currentTime) {
+                        insertBillRecordToDataBase(it.id)
+                        return
+                    }
                 }
+                insertBillRecordToDataBase(-1)
             }
-            insertBillRecordToDataBase(-1)
         })
     }
 

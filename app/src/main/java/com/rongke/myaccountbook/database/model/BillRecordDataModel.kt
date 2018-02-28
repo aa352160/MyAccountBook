@@ -11,6 +11,10 @@ import android.arch.persistence.room.*
         foreignKeys = [(ForeignKey(entity = DateRecordDataModel::class,
                                    parentColumns = ["id"],
                                    childColumns = ["createTimeId"]))])
+/**
+ * @param type : 记录类型（如餐饮等）
+ * @param isIncome : true 收入，false 支出
+ */
 data class BillRecordDataModel(var type: Int, var isIncome: Boolean, var price: String?, var createTimeId: Long) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
