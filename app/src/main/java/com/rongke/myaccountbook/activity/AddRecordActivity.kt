@@ -2,18 +2,18 @@ package com.rongke.myaccountbook.activity
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.widget.Toast
 import com.rongke.baselibrary.base.BaseActivity
 import com.rongke.baselibrary.util.CommonUtil
 import com.rongke.myaccountbook.R
-import com.rongke.myaccountbook.R.id.edt_price
 import com.rongke.myaccountbook.database.model.BillRecordDataModel
 import com.rongke.myaccountbook.database.model.DateRecordDataModel
+import com.rongke.myaccountbook.listener.MoneyEditTextWatcher
 import com.rongke.myaccountbook.util.BILL_RECORD_TYPE_DINING
 import com.rongke.myaccountbook.util.castToTimeStr
 import com.rongke.myaccountbook.viewmodel.BillRecordViewModel
 import com.rongke.myaccountbook.viewmodel.DateRecordViewModel
 import kotlinx.android.synthetic.main.activity_add_record.*
+import java.math.BigDecimal
 
 /**
  * Created by jh352160 on 2018/2/6.
@@ -26,6 +26,8 @@ class AddRecordActivity : BaseActivity(){
     override fun setLayoutRes(): Int = R.layout.activity_add_record
 
     override fun initView() {
+        edt_price.addTextChangedListener(MoneyEditTextWatcher(edt_price))
+
         btn_save.setOnClickListener {
             if (checkInput()) {
                 checkDate(System.currentTimeMillis().castToTimeStr())
@@ -70,8 +72,8 @@ class AddRecordActivity : BaseActivity(){
                     DateRecordDataModel(System.currentTimeMillis().castToTimeStr()))
         }
 
-        val model = BillRecordDataModel(
-                BILL_RECORD_TYPE_DINING,false,edt_price.text.toString(),dateId)
+        val price = BigDecimal(edt_price.text.toString()).setScale(2).toString()
+        val model = BillRecordDataModel(BILL_RECORD_TYPE_DINING,false,price,dateId)
         recordViewModel.insert(model)
         finish()
     }
