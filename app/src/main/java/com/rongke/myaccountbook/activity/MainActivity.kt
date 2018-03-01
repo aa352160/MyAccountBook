@@ -3,6 +3,7 @@ package com.rongke.myaccountbook.activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
+import android.view.animation.AnimationUtils
 import com.rongke.baselibrary.base.BaseActivity
 import com.rongke.myaccountbook.R
 import com.rongke.myaccountbook.adapter.IndexAdapter
@@ -50,9 +51,21 @@ class MainActivity : BaseActivity() {
                 recordList.add(it)
             }
             mainData.add(MainRecordBean(it.dateStr,recordList))
+            mainData.add(MainRecordBean(it.dateStr,recordList))
+            mainData.add(MainRecordBean(it.dateStr,recordList))
+            mainData.add(MainRecordBean(it.dateStr,recordList))
+            mainData.add(MainRecordBean(it.dateStr,recordList))
+            mainData.add(MainRecordBean(it.dateStr,recordList))
+            mainData.add(MainRecordBean(it.dateStr,recordList))
+            mainData.add(MainRecordBean(it.dateStr,recordList))
+            mainData.add(MainRecordBean(it.dateStr,recordList))
+            mainData.add(MainRecordBean(it.dateStr,recordList))
+            mainData.add(MainRecordBean(it.dateStr,recordList))
         }
 
         recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recycler_view.adapter = IndexAdapter(this, mainData)
+
+//        recycler_view.layoutAnimation = AnimationUtils.loadLayoutAnimation(this,R.anim.layout_animation_fall_down)
     }
 }
