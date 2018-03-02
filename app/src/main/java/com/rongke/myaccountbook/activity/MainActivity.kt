@@ -2,6 +2,7 @@ package com.rongke.myaccountbook.activity
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.animation.AnimationUtils
 import com.rongke.baselibrary.base.BaseActivity
@@ -16,10 +17,13 @@ import com.rongke.myaccountbook.viewmodel.DateRecordViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 
+const val ADD_BILL_RECORD = 1
 
 class MainActivity : BaseActivity() {
     private val recordViewModel by lazy { ViewModelProviders.of(this).get(BillRecordViewModel::class.java) }
     private val dateRecordModel by lazy { ViewModelProviders.of(this).get(DateRecordViewModel::class.java) }
+
+    private val observer = Observer<List<DateRecordDataModel>>{datas -> getRecordByTime(datas)}
 
     private lateinit var mainData : ArrayList<MainRecordBean>
 
@@ -27,7 +31,6 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
         getDateRecord()
-//        getRecordFromDataBase()
         btn_add.setOnClickListener { UIHelper.gotoAddRecordActivity(this) }
     }
 
@@ -36,7 +39,12 @@ class MainActivity : BaseActivity() {
      */
     private fun getDateRecord() {
         val allDatas = dateRecordModel.allDatas
-        allDatas.observe(this, Observer { datas -> getRecordByTime(datas) })
+
+        if (allDatas.hasObservers()){
+            allDatas.removeObserver(observer)
+        }
+
+        allDatas.observe(this, observer)
     }
 
     /**
@@ -51,21 +59,16 @@ class MainActivity : BaseActivity() {
                 recordList.add(it)
             }
             mainData.add(MainRecordBean(it.dateStr,recordList))
-            mainData.add(MainRecordBean(it.dateStr,recordList))
-            mainData.add(MainRecordBean(it.dateStr,recordList))
-            mainData.add(MainRecordBean(it.dateStr,recordList))
-            mainData.add(MainRecordBean(it.dateStr,recordList))
-            mainData.add(MainRecordBean(it.dateStr,recordList))
-            mainData.add(MainRecordBean(it.dateStr,recordList))
-            mainData.add(MainRecordBean(it.dateStr,recordList))
-            mainData.add(MainRecordBean(it.dateStr,recordList))
-            mainData.add(MainRecordBean(it.dateStr,recordList))
-            mainData.add(MainRecordBean(it.dateStr,recordList))
         }
 
         recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recycler_view.adapter = IndexAdapter(this, mainData)
+    }
 
-//        recycler_view.layoutAnimation = AnimationUtils.loadLayoutAnimation(this,R.anim.layout_animation_fall_down)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == ADD_BILL_RECORD){
+            getDateRecord()
+        }
     }
 }

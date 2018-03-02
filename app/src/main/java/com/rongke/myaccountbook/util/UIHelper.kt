@@ -1,5 +1,6 @@
 package com.rongke.myaccountbook.util
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import com.rongke.myaccountbook.activity.AddRecordActivity
@@ -21,8 +22,8 @@ object UIHelper{
     /**
      * 添加记录页面
      */
-    fun gotoAddRecordActivity(context: Context){
+    fun gotoAddRecordActivity(context: Activity){
         val intent = Intent(context,AddRecordActivity::class.java)
-        context.startActivity(intent)
+        context.startActivityForResult(intent,1)
     }
 }

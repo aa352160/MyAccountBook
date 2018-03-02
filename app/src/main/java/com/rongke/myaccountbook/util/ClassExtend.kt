@@ -11,3 +11,4 @@ import java.util.*
  */
 
 fun Long.castToTimeStr() : String = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(Date(this))
+fun Long.castToTimeDetailStr() : String = SimpleDateFormat("HH:mm:ss", Locale.CHINA).format(Date(this))

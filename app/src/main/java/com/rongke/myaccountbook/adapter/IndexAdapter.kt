@@ -9,8 +9,10 @@ import android.widget.TextView
 import com.rongke.myaccountbook.R
 import com.rongke.myaccountbook.bean.MainRecordBean
 import com.rongke.myaccountbook.database.model.BillRecordDataModel
+import com.rongke.myaccountbook.util.castToTimeDetailStr
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_index_list.*
+import org.w3c.dom.Text
 
 /**
  * Created by jh352160 on 2018/2/5.
@@ -39,6 +41,8 @@ class IndexAdapter(private val context: Context, private val datas : List<MainRe
             ll_record.removeAllViews()
             for (item in datas){
                 val view = LayoutInflater.from(context).inflate(R.layout.item_index_record, ll_record,false)
+                view.findViewById<TextView>(R.id.tv_record_time).text = item.createTimeDetail.castToTimeDetailStr()
+                view.findViewById<TextView>(R.id.tv_record_title).text = item.title
                 if (item.isIncome){
                     view.findViewById<TextView>(R.id.tv_record_money).text = "+${item.price}"
                 }else{

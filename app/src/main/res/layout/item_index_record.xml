@@ -17,7 +17,7 @@
         />
 
     <TextView
-        android:id="@+id/tv_record_type"
+        android:id="@+id/tv_record_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/iv_record_type"

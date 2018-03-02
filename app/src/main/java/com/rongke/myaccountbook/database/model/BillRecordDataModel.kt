@@ -15,9 +15,10 @@ import android.arch.persistence.room.*
  * @param type : 记录类型（如餐饮等）
  * @param isIncome : true 收入，false 支出
  */
-data class BillRecordDataModel(var type: Int, var isIncome: Boolean, var price: String?, var createTimeId: Long) {
+data class BillRecordDataModel(var type: Int, var isIncome: Boolean, var price: String?,
+                               var title:String?, var createTimeId: Long, var createTimeDetail: Long) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 
-    constructor() : this(0,false,null,System.currentTimeMillis())
+    constructor() : this(0,false,null,null,0,System.currentTimeMillis())
 }

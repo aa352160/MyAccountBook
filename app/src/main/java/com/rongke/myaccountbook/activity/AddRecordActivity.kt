@@ -7,6 +7,8 @@ import com.rongke.baselibrary.util.CommonUtil
 import com.rongke.myaccountbook.R
 import com.rongke.myaccountbook.database.model.BillRecordDataModel
 import com.rongke.myaccountbook.database.model.DateRecordDataModel
+import com.rongke.myaccountbook.database.repository.BillRecordRepository
+import com.rongke.myaccountbook.database.repository.DateRecordRepository
 import com.rongke.myaccountbook.listener.MoneyEditTextWatcher
 import com.rongke.myaccountbook.util.BILL_RECORD_TYPE_DINING
 import com.rongke.myaccountbook.util.castToTimeStr
@@ -73,8 +75,11 @@ class AddRecordActivity : BaseActivity(){
         }
 
         val price = BigDecimal(edt_price.text.toString()).setScale(2).toString()
-        val model = BillRecordDataModel(BILL_RECORD_TYPE_DINING,false,price,dateId)
+        val title = edt_title.text.toString()
+        val model = BillRecordDataModel(BILL_RECORD_TYPE_DINING,false,price,title,dateId,System.currentTimeMillis())
         recordViewModel.insert(model)
+
+        setResult(ADD_BILL_RECORD)
         finish()
     }
 }
