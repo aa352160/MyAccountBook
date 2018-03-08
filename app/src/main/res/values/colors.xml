@@ -6,5 +6,6 @@
     <color name="black">#000000</color>
 
     <color name="primary_font_color">#333333</color>
+    <color name="color_white">#FFFFFF</color>
 
 </resources>

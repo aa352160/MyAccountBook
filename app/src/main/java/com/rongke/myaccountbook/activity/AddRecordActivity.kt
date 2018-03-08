@@ -7,11 +7,10 @@ import com.rongke.baselibrary.util.CommonUtil
 import com.rongke.myaccountbook.R
 import com.rongke.myaccountbook.database.model.BillRecordDataModel
 import com.rongke.myaccountbook.database.model.DateRecordDataModel
-import com.rongke.myaccountbook.database.repository.BillRecordRepository
-import com.rongke.myaccountbook.database.repository.DateRecordRepository
 import com.rongke.myaccountbook.listener.MoneyEditTextWatcher
 import com.rongke.myaccountbook.util.BILL_RECORD_TYPE_DINING
 import com.rongke.myaccountbook.util.castToTimeStr
+import com.rongke.myaccountbook.view.TypeChoosePopupWindow
 import com.rongke.myaccountbook.viewmodel.BillRecordViewModel
 import com.rongke.myaccountbook.viewmodel.DateRecordViewModel
 import kotlinx.android.synthetic.main.activity_add_record.*
@@ -29,6 +28,10 @@ class AddRecordActivity : BaseActivity(){
 
     override fun initView() {
         edt_price.addTextChangedListener(MoneyEditTextWatcher(edt_price))
+
+        iv_record_type.setOnClickListener { v ->
+            TypeChoosePopupWindow(this).show(v)
+        }
 
         btn_save.setOnClickListener {
             if (checkInput()) {
