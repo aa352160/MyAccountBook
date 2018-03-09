@@ -23,7 +23,7 @@ class MainActivity : BaseActivity() {
     private val recordViewModel by lazy { ViewModelProviders.of(this).get(BillRecordViewModel::class.java) }
     private val dateRecordModel by lazy { ViewModelProviders.of(this).get(DateRecordViewModel::class.java) }
 
-    private val observer = Observer<List<DateRecordDataModel>>{datas -> getRecordByTime(datas)}
+    private val observer = Observer<List<DateRecordDataModel>>{getRecordByTime(it)}
 
     private lateinit var mainData : ArrayList<MainRecordBean>
 

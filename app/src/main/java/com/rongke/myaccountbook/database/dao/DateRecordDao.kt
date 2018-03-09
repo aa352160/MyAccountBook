@@ -13,7 +13,7 @@ import com.rongke.myaccountbook.database.model.DateRecordDataModel
 
 @Dao
 interface DateRecordDao {
-    @Query("SELECT * from date_record_table ORDER BY id ASC")
+    @Query("SELECT * from date_record_table ORDER BY id DESC")
     fun allDateRecord(): LiveData<List<DateRecordDataModel>>
 
     @Insert

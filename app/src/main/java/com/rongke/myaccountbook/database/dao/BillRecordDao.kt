@@ -13,7 +13,7 @@ import com.rongke.myaccountbook.database.model.BillRecordDataModel
 
 @Dao
 interface BillRecordDao {
-    @get:Query("SELECT * from bill_record_table ORDER BY id ASC")
+    @get:Query("SELECT * from bill_record_table ORDER BY id DESC")
     val allRecord: LiveData<List<BillRecordDataModel>>
 
     @Insert

@@ -5,10 +5,11 @@ import android.arch.lifecycle.ViewModelProviders
 import com.rongke.baselibrary.base.BaseActivity
 import com.rongke.baselibrary.util.CommonUtil
 import com.rongke.myaccountbook.R
+import com.rongke.myaccountbook.bean.RecordTypeBean
 import com.rongke.myaccountbook.database.model.BillRecordDataModel
 import com.rongke.myaccountbook.database.model.DateRecordDataModel
 import com.rongke.myaccountbook.listener.MoneyEditTextWatcher
-import com.rongke.myaccountbook.util.BILL_RECORD_TYPE_DINING
+import com.rongke.myaccountbook.util.RecordTypeHelper
 import com.rongke.myaccountbook.util.castToTimeStr
 import com.rongke.myaccountbook.view.TypeChoosePopupWindow
 import com.rongke.myaccountbook.viewmodel.BillRecordViewModel
@@ -24,13 +25,16 @@ class AddRecordActivity : BaseActivity(){
     private val recordViewModel by lazy { ViewModelProviders.of(this).get(BillRecordViewModel::class.java) }
     private val dateRecordModel by lazy { ViewModelProviders.of(this).get(DateRecordViewModel::class.java) }
 
+    private var selectTypeId = 0
+
     override fun setLayoutRes(): Int = R.layout.activity_add_record
 
     override fun initView() {
         edt_price.addTextChangedListener(MoneyEditTextWatcher(edt_price))
+        typeChoose(RecordTypeHelper.getDefaultType())
 
         iv_record_type.setOnClickListener { v ->
-            TypeChoosePopupWindow(this).show(v)
+            TypeChoosePopupWindow(this, {typeChoose(it)}).show(v)
         }
 
         btn_save.setOnClickListener {
@@ -38,6 +42,13 @@ class AddRecordActivity : BaseActivity(){
                 checkDate(System.currentTimeMillis().castToTimeStr())
             }
         }
+    }
+
+    private fun typeChoose(it: RecordTypeBean) {
+        selectTypeId = it.typeId
+        iv_record_type.setImageDrawable(getDrawable(it.typeImgResId))
+        tv_record_type.text = it.typeName
+        edt_title.hint = it.typeName
     }
 
     private fun checkInput(): Boolean {
@@ -78,8 +89,9 @@ class AddRecordActivity : BaseActivity(){
         }
 
         val price = BigDecimal(edt_price.text.toString()).setScale(2).toString()
-        val title = edt_title.text.toString()
-        val model = BillRecordDataModel(BILL_RECORD_TYPE_DINING,false,price,title,dateId,System.currentTimeMillis())
+        val title = if(edt_title.text.toString().isEmpty())
+                            { edt_title.hint.toString() } else { edt_title.text.toString() }
+        val model = BillRecordDataModel(selectTypeId,false,price,title,dateId,System.currentTimeMillis())
         recordViewModel.insert(model)
 
         setResult(ADD_BILL_RECORD)

@@ -20,6 +20,9 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun startCountDown() {
-        Handler().postDelayed({ UIHelper.gotoMainActivity(this@SplashActivity) },3000)
+        Handler().postDelayed({
+            UIHelper.gotoMainActivity(this@SplashActivity)
+            finish()
+        },3000)
     }
 }
