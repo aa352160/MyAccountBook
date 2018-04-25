@@ -1,1 +1,3 @@
 # MyAccountBook
+
+一款使用了Android Architecture Components与Kotlin编写的本地记账应用
